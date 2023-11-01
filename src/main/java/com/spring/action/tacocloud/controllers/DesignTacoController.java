@@ -4,6 +4,8 @@ import com.spring.action.tacocloud.domain.Ingredient;
 import com.spring.action.tacocloud.domain.IngredientType;
 import com.spring.action.tacocloud.domain.Taco;
 import com.spring.action.tacocloud.domain.TacoOrder;
+import com.spring.action.tacocloud.repository.IngredientRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,34 +17,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 @Slf4j
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
+@RequiredArgsConstructor
 public class DesignTacoController {
+
+    private final IngredientRepository ingredientRepository;
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
-        List<Ingredient> ingredients = List.of(
-                new Ingredient("FLTO", "Flour Tortilla", IngredientType.WRAP),
-                new Ingredient("COTO", "Corn Tortilla", IngredientType.WRAP),
-                new Ingredient("GRBF", "Ground Beef", IngredientType.PROTEIN),
-                new Ingredient("CARN", "Carnitas", IngredientType.PROTEIN),
-                new Ingredient("TMTO", "Diced Tomatoes", IngredientType.VEGGIES),
-                new Ingredient("LETC", "Lettuce", IngredientType.VEGGIES),
-                new Ingredient("CHED", "Cheddar", IngredientType.CHEESE),
-                new Ingredient("JACK", "Monterrey Jack", IngredientType.CHEESE),
-                new Ingredient("SLSA", "Salsa", IngredientType.SAUCE),
-                new Ingredient("SRCR", "Sour Cream", IngredientType.SAUCE)
-        );
-
+        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
         for (IngredientType type : IngredientType.values()) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
         }
-
     }
 
     @ModelAttribute(name = "tacoOrder")
@@ -67,8 +59,9 @@ public class DesignTacoController {
         return "redirect:/orders/current";
     }
 
-    private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, IngredientType type) {
-        return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
+    private Iterable<Ingredient> filterByType(Iterable<Ingredient> ingredients, IngredientType type) {
+        return StreamSupport.stream(ingredients.spliterator(), false).filter(i -> i.getType().equals(type)).collect(Collectors.toList());
     }
+
 
 }

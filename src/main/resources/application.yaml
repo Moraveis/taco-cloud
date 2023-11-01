@@ -1,3 +1,6 @@
 spring:
+  datasource:
+    generate-unique-name: false
+    name: taco-cloud
   thymeleaf:
     cache: false
