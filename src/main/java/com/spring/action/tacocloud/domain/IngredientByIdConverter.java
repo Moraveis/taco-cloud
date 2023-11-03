@@ -1,13 +1,9 @@
 package com.spring.action.tacocloud.domain;
 
 import com.spring.action.tacocloud.repository.IngredientRepository;
-import com.spring.action.tacocloud.repository.JdbcIngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
