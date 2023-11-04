@@ -4,6 +4,7 @@ import com.spring.action.tacocloud.domain.Ingredient;
 import com.spring.action.tacocloud.domain.IngredientType;
 import com.spring.action.tacocloud.domain.Taco;
 import com.spring.action.tacocloud.domain.TacoOrder;
+import com.spring.action.tacocloud.domain.TacoUDT;
 import com.spring.action.tacocloud.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,8 +55,12 @@ public class DesignTacoController {
 
     @PostMapping
     public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
-        tacoOrder.addTaco(taco);
-        log.info("Processing taco: {}", taco);
+        if (errors.hasErrors()) {
+            return "design";
+        }
+
+        tacoOrder.addTaco(new TacoUDT(taco.getName(), taco.getIngredients()));
+
         return "redirect:/orders/current";
     }
 
