@@ -1,6 +1,10 @@
 spring:
   datasource:
+    initialization-mode: never
     generate-unique-name: false
     name: taco-cloud
+  sql:
+    init:
+      mode: never
   thymeleaf:
     cache: false
