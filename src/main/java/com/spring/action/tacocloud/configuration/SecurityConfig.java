@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .antMatchers("/design", "/orders").access("hasRole('USER')")
                 .antMatchers("/", "/**").access("permitAll()")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/design", true)
+                .and().logout().logoutSuccessUrl("/")
                 .and()
                 .build();
     }
