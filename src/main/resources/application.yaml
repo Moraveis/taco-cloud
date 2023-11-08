@@ -1,10 +1,49 @@
+server:
+  port: 0
+
+greeting:
+  welcome: You are using ${spring.application.name}.
+
+logging:
+#  file:
+#    path: /var/logs/
+#    file: TacoCloud.log
+  level:
+    root: WARN
+    org.springframework.security: DEBUG
+
 spring:
+  application:
+    name: taco-cloud-application
   datasource:
-    initialization-mode: never
-    generate-unique-name: false
+#    initialization-mode: never
+#    generate-unique-name: false
     name: taco-cloud
+    url: jdbc:h2:mem:taco-cloud
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true # if there is a data.sql it will be applied after the schema generation by jpa
+    hibernate:
+      ddl-auto: none
+    show-sql: true
   sql:
     init:
-      mode: never
+      mode: never # don't run the default scripts and let jpa create from java classes
   thymeleaf:
     cache: false
+
+taco:
+  orders:
+    pageSize: 10
+
+---
+
+spring:
+  profiles: qa
+
+taco:
+  orders:
+    pageSize: 15
