@@ -15,6 +15,9 @@ logging:
 spring:
   application:
     name: taco-cloud-application
+  data:
+    rest:
+      base-path: /data-api
   datasource:
 #    initialization-mode: never
 #    generate-unique-name: false
