@@ -4,6 +4,7 @@ import com.spring.action.tacocloud.domain.User;
 import com.spring.action.tacocloud.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableGlobalMethodSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -25,7 +26,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-//                .antMatchers(HttpMethod.POST, "/admin/**").access("hasRole('ADMIN')")
+                .antMatchers(HttpMethod.POST, "/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/design", "/orders").access("hasRole('USER')")
                 .antMatchers("/", "/**").access("permitAll()")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/design", true)

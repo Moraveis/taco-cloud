@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 8080
 
 greeting:
   welcome: You are using ${spring.application.name}.
@@ -9,8 +9,8 @@ logging:
 #    path: /var/logs/
 #    file: TacoCloud.log
   level:
-    root: WARN
-    org.springframework.security: DEBUG
+    root: INFO
+    org.springframework.security: INFO
 
 spring:
   application:
@@ -27,8 +27,8 @@ spring:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true # if there is a data.sql it will be applied after the schema generation by jpa
     hibernate:
-      ddl-auto: none
-    show-sql: true
+      ddl-auto: create-drop
+    show-sql: false
   sql:
     init:
       mode: never # don't run the default scripts and let jpa create from java classes
@@ -40,9 +40,10 @@ taco:
     pageSize: 10
 
 ---
-
 spring:
-  profiles: qa
+  config:
+    activate:
+      on-profile: qa
 
 taco:
   orders:

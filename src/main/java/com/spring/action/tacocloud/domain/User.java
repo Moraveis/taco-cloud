@@ -9,6 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,8 +19,10 @@ import java.util.List;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@Table(name = "users")
 public class User implements UserDetails {
 
+    @Id
     private Long id;
 
     private final String username;
