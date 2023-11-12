@@ -10,11 +10,16 @@ logging:
   #    file: TacoCloud.log
   level:
     root: INFO
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG
 
 spring:
   application:
     name: taco-cloud-application
+  artemis:
+    host: localhost
+    port: 8161
+    user: admin
+    password: admin
   datasource:
     #    initialization-mode: never
     #    generate-unique-name: false
@@ -23,6 +28,9 @@ spring:
     username: sa
     password: password
     driverClassName: org.h2.Driver
+  jms:
+    template:
+      default-destination: tacocloud.order.queue
   jpa:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true # if there is a data.sql it will be applied after the schema generation by jpa
