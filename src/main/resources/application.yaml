@@ -5,9 +5,9 @@ greeting:
   welcome: You are using ${spring.application.name}.
 
 logging:
-#  file:
-#    path: /var/logs/
-#    file: TacoCloud.log
+  #  file:
+  #    path: /var/logs/
+  #    file: TacoCloud.log
   level:
     root: INFO
     org.springframework.security: INFO
@@ -16,8 +16,8 @@ spring:
   application:
     name: taco-cloud-application
   datasource:
-#    initialization-mode: never
-#    generate-unique-name: false
+    #    initialization-mode: never
+    #    generate-unique-name: false
     name: taco-cloud
     url: jdbc:h2:mem:taco-cloud
     username: sa
@@ -29,6 +29,11 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
   sql:
     init:
       mode: never # don't run the default scripts and let jpa create from java classes
