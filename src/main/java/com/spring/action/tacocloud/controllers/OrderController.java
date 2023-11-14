@@ -4,7 +4,7 @@ import com.spring.action.tacocloud.configuration.OrderProperties;
 import com.spring.action.tacocloud.domain.TacoOrder;
 import com.spring.action.tacocloud.domain.User;
 import com.spring.action.tacocloud.repository.OrderRepository;
-import com.spring.action.tacocloud.service.OrderMessagingService;
+import com.spring.action.tacocloud.producer.OrderMessagingProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +31,7 @@ public class OrderController {
 
     private final OrderRepository orderRepo;
     private final OrderProperties orderProperties;
-    private final OrderMessagingService messagingService;
+    private final OrderMessagingProducer messagingService;
     // [OP1] private final UserRepository userRepository;
 
     @GetMapping("/current")

@@ -1,12 +1,13 @@
 package com.spring.action.tacocloud.configuration;
 
 import com.spring.action.tacocloud.domain.TacoOrder;
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 
 import javax.jms.ConnectionFactory;
@@ -25,18 +26,10 @@ public class MessagingConfig {
     }
 
     @Bean
-    public ConnectionFactory connectionFactory() {
-        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-        activeMQConnectionFactory.setBrokerURL(brokerUrl);
-        return activeMQConnectionFactory;
-    }
-
-    @Bean
-    public JmsTemplate jmsTemplate() {
-        JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setConnectionFactory(connectionFactory());
-        jmsTemplate.setPubSubDomain(true);  // enable for Pub Sub to topic. Not Required for Queue.
-        return jmsTemplate;
+    public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory, DefaultJmsListenerContainerFactoryConfigurer configurer) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        return factory;
     }
 
     @Bean

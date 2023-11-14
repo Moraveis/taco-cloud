@@ -1,5 +1,6 @@
 package com.spring.action.tacocloud.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
@@ -51,6 +52,7 @@ public class TacoOrder implements Serializable {
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
+    @JsonIgnore
     @ManyToOne
     private User user;
 

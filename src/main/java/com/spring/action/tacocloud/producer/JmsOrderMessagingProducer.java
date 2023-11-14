@@ -1,15 +1,13 @@
-package com.spring.action.tacocloud.service;
+package com.spring.action.tacocloud.producer;
 
 import com.spring.action.tacocloud.domain.TacoOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.jms.Destination;
-
 @Service
 @RequiredArgsConstructor
-public class JmsOrderMessagingService implements OrderMessagingService {
+public class JmsOrderMessagingProducer implements OrderMessagingProducer {
 
     private final JmsTemplate jmsTemplate;
     // private final Destination destinationQueue;
