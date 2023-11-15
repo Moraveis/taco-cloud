@@ -15,3 +15,7 @@ curl localhost:9000/oauth2/token -H "Content-type: application/x-www-form-urlenc
 curl localhost:8080/ingredients -H "Content-type: application/json" -H "Authorization: Bearer " -d '{"id":"FISH","name":"Stinky Fish", "type":"PROTEIN"}'
 
 curl localhost:9000/oauth2/token -H "Content-type: application/x-www-form-urlencoded" -d "grant_type=refresh_token&refresh_token=HOzHA" -u taco-admin-client:secret
+
+# Docker 
+docker run --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
+credentials: guest/guest
