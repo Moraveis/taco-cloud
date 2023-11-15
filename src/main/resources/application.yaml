@@ -29,6 +29,11 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    template:
+      default-topic: tacocloud.orders.topic
   security:
     oauth2:
       resource-server:
