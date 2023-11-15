@@ -29,6 +29,11 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
+  rabbitmq:
+    template:
+      exchange: tacocloud.order
+      routing-key: kitchens.central
+      receive-timeout: 30000
   security:
     oauth2:
       resource-server:
