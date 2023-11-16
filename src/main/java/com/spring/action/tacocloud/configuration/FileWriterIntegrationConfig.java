@@ -2,7 +2,6 @@ package com.spring.action.tacocloud.configuration;
 
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.MessageChannels;
@@ -11,7 +10,7 @@ import org.springframework.integration.file.support.FileExistsMode;
 
 import java.io.File;
 
-@Configuration
+//@Configuration
 //@ImportResource("classpath:/filewriter-config.xml")
 public class FileWriterIntegrationConfig {
 
@@ -27,13 +26,17 @@ public class FileWriterIntegrationConfig {
                 .get();
     }
 
-
     /* JAVA Configuration setup
 
     @Bean
     @Transformer(inputChannel = "textInChannel", outputChannel = "fileWriterChannel")
     public GenericTransformer<String, String> upperCaseTransformer() {
         return String::toUpperCase;
+    }
+
+    @Bean
+    public MessageChannel orderChannel() {
+        return new PublishSubscribeChannel();
     }
 
     @Bean
@@ -56,6 +59,7 @@ public class FileWriterIntegrationConfig {
     @Bean
     public MessageChannel fileWriterChannel() {
         return new DirectChannel();
-    }*/
+    }
+    */
 }
 
